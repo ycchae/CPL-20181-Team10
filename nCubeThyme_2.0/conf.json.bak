@@ -1,0 +1,35 @@
+{
+    "useprotocol": "http",
+    "cse": {
+        "cbhost": "127.0.0.1",
+        "cbport": "7579",
+        "cbname": "mobius-yt",
+        "cbcseid": "/mobius-yt",
+        "mqttport": "1883"
+    },
+    "ae": {
+        "aeid": "S",
+        "appid": "0.2.481.1.1",
+        "appname": "ae-test1",
+        "appport": "9727",
+        "bodytype": "xml",
+        "tasport": "3105"
+    },
+    "cnt": [
+        {
+            "parentpath": "/ae-test1",
+            "ctname": "cnt-co2"
+        },
+        {
+            "parentpath": "/ae-test1",
+            "ctname": "cnt-led"
+        }
+    ],
+    "sub": [
+        {
+            "parentpath": "/ae-test1/cnt-led",
+            "subname": "sub-ctrl",
+            "nu": "mqtt://AUTOSET"
+        }
+    ]
+}

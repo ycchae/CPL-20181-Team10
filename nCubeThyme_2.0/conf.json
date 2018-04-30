@@ -1,0 +1,31 @@
+{
+    "useprotocol": "http",
+    "cse": {
+        "cbhost": "192.168.1.18",
+        "cbport": "7499",
+        "cbname": "lavender",
+        "cbcseid": "/lavender",
+        "mqttport": "1883"
+    },
+    "ae": {
+        "aeid": "S",
+        "appid": "ae-test3",
+        "appname": "ae-test3",
+        "appport": "9727",
+        "bodytype": "xml",
+        "tasport": "3105"
+    },
+    "cnt": [
+        {
+		"parentpath": "/ae-test3",
+		"ctname": "cnt-led3"
+        }
+    ],
+    "sub": [
+        {
+            "parentpath": "/ae-test3/cnt-led3",
+            "subname": "sub-ctrl3",
+            "nu": "mqtt://AUTOSET"
+        }
+    ]
+}
