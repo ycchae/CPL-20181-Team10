@@ -136,6 +136,7 @@ public class TasDataProcess extends Thread {
 						TasSender.sendMessage(container.ctname, "{\"ctname\":\"" + container.ctname + "\",\"con\":\"hello\"}");
 					}
 					else {
+						container.tasSocket = tasSocket;
 						HttpClientRequest.contentInstanceCreateRequest(cse, ae, container, content, contentInfo);
 					}
 				}

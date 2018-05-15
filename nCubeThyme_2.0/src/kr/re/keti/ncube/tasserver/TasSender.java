@@ -46,7 +46,7 @@ public class TasSender {
 		System.out.println("IN SENDMESSAGE");
 		for (int i = 0; i < containers.size(); i++) {
 			tempContainer = containers.get(i);
-			System.out.println("tempContainer");
+			System.out.println("tempContainer"+tempContainer.toString());
 			System.out.println("parentpath= "+tempContainer.parentpath);
 			System.out.println("ctname= "+tempContainer.ctname);
 			System.out.println("tasSocket= "+tempContainer.tasSocket);
@@ -54,7 +54,7 @@ public class TasSender {
 			
 			if (containerName.equals(tempContainer.ctname)) {
 				Socket tasSocket = tempContainer.tasSocket;
-				System.out.println("is equal?" +containerName + " / " +tempContainer.ctname);
+				System.out.println("is equal? " +containerName + " / " +tempContainer.ctname);
 				if (tasSocket.isConnected()) {
 					System.out.println("IN Is connected");
 //					PrintWriter writer = new PrintWriter(tasSocket.getOutputStream(), true);

@@ -27,6 +27,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttPersistenceException;
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -193,12 +194,36 @@ public class MqttClientKetiSub implements MqttCallback {
 		String payload = byteArrayToString(message.getPayload());
 		
 		System.out.println("s3[KETI MQTT Client] MQTT Topic \"" + topic + "\" Subscription Payload = " + payload);
-		
+
+		System.out.println("JSON String 파싱");
+		JSONObject tmp = new JSONObject(payload);
+		String xml = "<m2m:cin xmlns:m2m=\"http://www.onem2m.org/xml/protocols\">";
+		String rqi = "";
+		String con = "";
+		String sur = "";
+		try{
+			rqi += tmp.get("rqi");
+			System.out.println("rqi: "+rqi);
+			JSONObject tmp2 = tmp.getJSONObject("pc").getJSONObject("sgn");
+			sur += tmp2.get("sur");
+			System.out.println("sur: "+sur);
+			tmp2 = tmp2.getJSONObject("nev").getJSONObject("rep").getJSONObject("m2m:cin");
+			con += tmp2.get("con");
+			System.out.println("con:" +con);
+		}catch(Exception e){
+		    e.printStackTrace();
+		}
+		xml += "<rqi>"+rqi+"</rqi>";
+		xml += "<con>"+con+"</con>";
+		xml += "<sur>"+sur+"</sur>";
+		xml += "</m2m:cin>";
+
 		ArrayList<String> mqttMessage = new ArrayList<String>();
-		mqttMessage = MqttClientRequestParser.notificationParse(payload);
+		mqttMessage = MqttClientRequestParser.notificationParse(xml);
+		System.out.println("YC_mqttMessage: "+mqttMessage.toString());
 		
 		String responseMessage = MqttClientRequest.notificationResponse(mqttMessage);
-		
+		System.out.println("YC_responseMessage: "+responseMessage);
 		String content = "";
 		String subr = "";
 		String container = "";
@@ -216,7 +241,7 @@ public class MqttClientKetiSub implements MqttCallback {
 			try {
 				contentObject.put("ctname", container);
 				contentObject.put("con", content);
-				System.out.println(contentObject.toString());
+				System.out.println("contentObject send to TAS: "+contentObject.toString());
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -226,7 +251,7 @@ public class MqttClientKetiSub implements MqttCallback {
 			System.out.println("[&CubeThyme] MQTT Notification message   : " + content);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println("MqttCli catch");
+			System.out.println("YC: MqttCli catch");
 			System.out.println("[&CubeThyme] TAS connection is closed\n");
 		}
 		

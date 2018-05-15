@@ -51,7 +51,7 @@ public class ThymeMain {
 	private static ArrayList<Subscription> subscriptions = new ArrayList<Subscription>();
 	private static InetAddress ip;
 	
-	private static boolean windows = true;
+	private static boolean windows = false;
 	
 	public static MqttClientKetiSub requestClient;
 	public static MqttClientKetiSub responseClient;
@@ -161,6 +161,7 @@ public class ThymeMain {
 		}
 		else {
 			System.out.println("NON_WINDOWS");
+			ip = InetAddress.getLocalHost();
 			InetSocketAddress serverSocketAddress = new InetSocketAddress(ip.getHostAddress(), Integer.parseInt(hostingAE.appPort));
 			HttpServer server = HttpServer.create(serverSocketAddress, 0);
 			server.createContext("/", new HttpServerTestHandler()); // HTTP server test url

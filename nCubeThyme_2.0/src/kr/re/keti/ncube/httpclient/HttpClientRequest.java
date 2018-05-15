@@ -93,7 +93,6 @@ public class HttpClientRequest {
 				post.setEntity(entity);
 			
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		
 		HttpResponse response = httpClient.execute(post);
 		
 		HttpEntity responseEntity = response.getEntity();
@@ -235,7 +234,7 @@ public class HttpClientRequest {
 	 */
 	public static int subscriptionCreateRequest(CSEBase cse, AE ae, Subscription subscription) throws Exception {
 		
-		System.out.println("[&CubeThyme] Subscription \"" + subscription.subname + "\" create request.......");
+		System.out.println("[&CubeThyme]sc Subscription \"" + subscription.subname + "\" create request.......");
 		
 		if (subscription.useMQTT) {			
 			subscription.nu = subscription.nu + "/" + ae.aeId;
@@ -288,7 +287,7 @@ public class HttpClientRequest {
 		return responseCode;
 	}
 	
-	/**
+	/**20.20.2.182
 	 * subscriptionDeleteRequest Method
 	 * Send to Mobius for delete the oneM2M subscription resource
 	 * @param cse
@@ -342,7 +341,59 @@ public class HttpClientRequest {
 	 * @return
 	 * @throws Exception
 	 */
-	public static int contentInstanceCreateRequest(CSEBase cse, AE ae, Container container, String content, String contentInfo) throws Exception {
+public static int contentInstanceCreateRequest(CSEBase cse, AE ae, Container container, String content, String contentInfo) throws Exception {
+		
+		System.out.println("[&CubeThyme] \"" + container.ctname + "\"'s contentInstance create request.......");
+		
+		String requestBody = "{ \"m2m:cin\": {" + 
+				"\"cnf\": \""+"text/plain:0"+"\"," + 
+				"\"con\": \""+content+"\"" + 
+				"}" + 
+				"}";
+		
+		StringEntity entity = new StringEntity(
+						new String(requestBody.getBytes()));
+		System.out.println("YC_Reqbody: "+requestBody);
+		//System.out.println("YC_);
+		URI uri = new URIBuilder()
+				.setScheme("http")
+				.setHost(cse.CSEHostAddress + ":" + cse.CSEPort)
+				.setPath("/" + cse.CSEName + container.parentpath + "/" + container.ctname)
+				.setParameter("rcn","0")
+				.build();
+		System.out.println("YC_HttpCli_uri: "+uri.toString());
+		
+		HttpPost post = new HttpPost(uri);
+		post.setHeader("Content-Type", "application/vnd.onem2m-res+json;ty=4");
+		//post.setHeader("Accept", "application/xml");
+		//post.setHeader("locale", "ko");
+		post.setHeader("X-M2M-Origin", ae.aeId);
+		post.setHeader("X-M2M-RI", "nCubeThyme" + Integer.toString(requestId++));
+		post.setEntity(entity);
+
+		System.out.println("YC_HttpCli_post: "+post.toString());
+		System.out.println("YC_postEntity: "+entity.toString());
+				
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		
+		HttpResponse response = httpClient.execute(post);
+		System.out.println("YC_HttpCli_response: "+response.toString());
+	
+		HttpEntity responseEntity = response.getEntity();
+		System.out.println("YC_HttpCli_responseEnity: "+responseEntity.toString());
+
+		String responseString = EntityUtils.toString(responseEntity);
+
+		int responseCode = response.getStatusLine().getStatusCode();
+		
+		System.out.println("[&CubeThyme] contentInstance create HTTP Response Code : " + responseCode);
+		System.out.println("[&CubeThyme] contentInstance create HTTP Response String : " + responseString);
+		
+		httpClient.close();
+		
+		return responseCode;
+	}
+	/*public static int contentInstanceCreateRequest(CSEBase cse, AE ae, Container container, String content, String contentInfo) throws Exception {
 		
 		System.out.println("[&CubeThyme] \"" + container.ctname + "\"'s contentInstance create request.......");
 		
@@ -393,5 +444,6 @@ public class HttpClientRequest {
 		httpClient.close();
 		
 		return responseCode;
-	}
+	}*/
+	
 }

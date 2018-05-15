@@ -18,8 +18,8 @@ public class MqttClientRequestParser {
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		InputSource xmlSource = new InputSource();
 		xmlSource.setCharacterStream(new StringReader(xml));
+		System.out.println("xmlSource: "+xmlSource.toString());
 		Document document = builder.parse(xmlSource);
-		
 		String rqi = "";
 		String content = "";
 		String subr = "";
@@ -35,6 +35,7 @@ public class MqttClientRequestParser {
 			Node conNode = conNodeList.item(0).getChildNodes().item(0);
 			content = conNode.getNodeValue();
 		}
+		
 		NodeList surNodeList = document.getElementsByTagName("sur");
 		if (surNodeList.getLength() > 0 && surNodeList.item(0).getChildNodes().getLength() > 0) {
 			Node surNode = surNodeList.item(0).getChildNodes().item(0);
