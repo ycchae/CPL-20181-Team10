@@ -246,8 +246,8 @@ public class MqttClientKetiSub implements MqttCallback {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
 			TasSender.sendMessage(container, contentObject.toString());
+			System.out.println("Show content: "+content);
 			System.out.println("[&CubeThyme] MQTT Notification message   : " + content);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -257,6 +257,52 @@ public class MqttClientKetiSub implements MqttCallback {
 		
 		ThymeMain.publishClient.publishFullPayload("/oneM2M/resp/" + responseTopic + "/" + this.aeId + "/xml", responseMessage);
 	}
+	/*
+	@Override
+	public void messageArrived(String topic, MqttMessage message) throws Exception {
+		
+		String[] topicSplit = topic.split("/");
+		String responseTopic = topicSplit[3];
+		String payload = byteArrayToString(message.getPayload());
+		
+		System.out.println("[KETI MQTT Client] MQTT Topic \"" + topic + "\" Subscription Payload = " + payload);
+		
+		ArrayList<String> mqttMessage = new ArrayList<String>();
+		mqttMessage = MqttClientRequestParser.notificationParse(payload);
+		
+		String responseMessage = MqttClientRequest.notificationResponse(mqttMessage);
+		
+		String content = "";
+		String subr = "";
+		String container = "";
+		
+		try {
+			content = mqttMessage.get(1);
+			subr = mqttMessage.get(2);
+			
+			String[] urlPath = subr.split("/");
+			container = urlPath[urlPath.length-2];
+			
+			System.out.println("[&CubeThyme] MQTT Notification container : " + container);
+			
+			JSONObject contentObject = new JSONObject();
+			try {
+				contentObject.put("ctname", container);
+				contentObject.put("con", content);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			TasSender.sendMessage(container, contentObject.toString());
+			System.out.println("[&CubeThyme] MQTT Notification message   : " + content);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("[&CubeThyme] TAS connection is closed\n");
+		}
+		
+		ThymeMain.publishClient.publishFullPayload("/oneM2M/resp/" + responseTopic + "/" + this.aeId + "/xml", responseMessage);
+	}*/
 
 	/**
 	 * Callback method

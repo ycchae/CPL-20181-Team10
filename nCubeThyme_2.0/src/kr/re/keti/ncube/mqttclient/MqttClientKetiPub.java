@@ -115,6 +115,7 @@ public class MqttClientKetiPub implements MqttCallback {
 		MqttMessage msg = new MqttMessage();
 		String payload = mgmtObjName + "," + controlValue;
 		msg.setPayload(payload.getBytes());
+		System.out.println("mqc.generateClientID: "+mqc.generateClientId());
 		try {
 			mqc.publish(topic, msg);
 			System.out.println("p1[KETI MQTT Client] MQTT Topic \"" + topic + "\" Publish Payload = " + payload);

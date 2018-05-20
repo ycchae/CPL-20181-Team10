@@ -66,6 +66,7 @@ public class TasSender {
 					System.out.println("BEFORE CLOSED");
 					System.out.println("[&CubeThyme] TAS connection is closed\n");
 				}
+				//System.out.println("why else angulrea");
 			}
 			else {
 				System.out.println("[&CubeThyme] Could not found container\n");

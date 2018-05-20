@@ -130,13 +130,13 @@ public class TasDataProcess extends Thread {
 				
 				if (containerMatch) {
 					if (content.equals("hello")) {
-						container.tasSocket = tasSocket;
+						//container.tasSocket = tasSocket;
 						replaceContainer(container);
 						System.out.println("[&CubeThyme] TAS registration success\n");
-						TasSender.sendMessage(container.ctname, "{\"ctname\":\"" + container.ctname + "\",\"con\":\"hello\"}");
+						TasSender.sendMessage(container.ctname, "{\"ctname\":\"" + container.ctname + "\",\"con\":\"byebye\"}");
 					}
 					else {
-						container.tasSocket = tasSocket;
+						//container.tasSocket = tasSocket;
 						HttpClientRequest.contentInstanceCreateRequest(cse, ae, container, content, contentInfo);
 					}
 				}

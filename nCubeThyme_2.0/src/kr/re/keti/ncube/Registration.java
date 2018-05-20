@@ -86,6 +86,7 @@ public class Registration {
 		while (!aeCreate) {
 			try {
 				int response = HttpClientRequest.aeCreateRequest(cse, ae);
+				System.out.println("aeCreate response: "+response);
 				if (response == 201) {
 					aeCreate = true;
 
@@ -99,7 +100,7 @@ public class Registration {
 				}
 				else if (response == 409) {
 					response = HttpClientRequest.aeRetrieveRequest(cse, ae);
-					
+					System.out.println("aeRetrieve response: "+response);
 					if (response == 200) {
 						aeCreate = true;
 						
