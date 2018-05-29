@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<title>LED Manager</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+<style>
+    .ledbut{
+        margin-left:25px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .pagi{
+        margin-left: 20px;
+    }
+
+</style>
+
+
+
+<body>
+
+<!-- Header -->
+
+<header class="w3-display-container w3-content w3-center" style="max-width:1500px">
+    <img class="w3-image" src="" alt="신호등 어플 img" width="1500" height="600">
+    <div class="w3-display-middle w3-padding-large w3-border w3-wide w3-text-light-grey w3-center"></div>
+</header>
+
+<!-- Page content -->
+<div class="w3-content w3-padding-large w3-margin-top" id="portfolio">
+    <!-- Contact -->
+    <div class="w3-light-grey w3-padding-large w3-padding-32 w3-margin-top" id="contact">
+        <h3 class="w3-center">10조</h3>
+        <hr>
+        <p>신호 관리 시스템에 가시광 통신 활용</p>
+
+
+        <div class="row">
+            <div class="row">
+                <div class="col ledbut"><button type="button" class="btn btn-success">[LED ON]</button></div>
+                <div class="col ledbut"><button type="button" class="btn btn-danger">[LED OFF]</button></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="panel panel-info">
+                    <div class="panel-heading">신호 밝기</div>
+                    <div id="LedBrightness" class="panel-body"></div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="panel panel-info">
+                    <div class="panel-heading">남은 시간</div>
+                    <div id="time" class="panel-body"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <label>밝기 강도</label>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group"><input type="range" class="form-control-range" name="range"></div>
+            </div>
+        </div>
+
+        <div class="row">
+            <label>신호 변경 텀</label>
+        </div>
+        <div class="row pagi">
+            <ul class="pagination">
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+            </ul>
+        </div>
+
+        <div class="row">
+            <div class="col"><button onclick="getData()" type="button" class="btn btn-primary">GET DATA</button></div>
+            <div class="col"><button type="button" class="btn btn-info">SEND DATA</button></div>
+        </div>
+    </div>    <!-- End page content -->
+</div>
+
+
+<script>
+    function getData() {
+        var myObj = { "LED":"RED", "Bright":31, "time":60};
+        var myJSON = JSON.stringify(myObj);
+        document.getElementById("LedBrightness").innerHTML = "5";
+        <!--ocument.getElementById("LedBrightness").innerHTML = myJSON.Bright;-->
+        document.getElementById("time").innerHTML = "14";
+        <!--document.getElementById("time").innerHTML = myJSON.time;-->
+    }
+
+</script>
+
+
+
+
+
+
+</body>
+</html>
