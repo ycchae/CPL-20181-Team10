@@ -21,7 +21,8 @@ import org.json.JSONObject;
 
 public class main {
 	public static int requestId = 0;
-	
+	public static String pcon = "";
+
 	public static void main(String[] args) {
 		final String MQTT_BROCKER_IP = "tcp://localhost:1883";
 		
@@ -52,8 +53,10 @@ public class main {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
+					if(pcon.equals(con))
+						return;
 					try {
+						pcon = con;
 						String a[] = con.split(" ");
 						contentInstanceCreateRequest(a[1], con);
 					} catch (Exception e) {
@@ -89,7 +92,7 @@ public class main {
 		URI uri = new URIBuilder()
 				.setScheme("http")
 				.setHost("127.0.0.1" + ":" + 7579)
-				.setPath("/" + "Mobius/" + "knu-test" + "/" + cnt)
+				.setPath("/" + "Mobius/" + "knu-ae" + "/" + cnt)
 				.setParameter("rcn","0")
 				.build();
 		
