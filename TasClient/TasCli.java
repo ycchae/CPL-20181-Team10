@@ -41,7 +41,8 @@ public class TasCli {
 				
 				pString = led.toString();
 				write();
-				System.out.println("in thread => " + led.toString());
+				System.out.println("color is changed!");
+				System.out.println(led.toString());
 			}
 		};
 		Timer timer = new Timer();
@@ -81,11 +82,22 @@ public class TasCli {
 				if(command.equals(pString))
 					continue;
 				
-				System.out.println("command => " + command);				
+				System.out.println("command is arrived!");
+				System.out.println(command);
 				commandArray = command.split(" ");
 				
 				if (command.equals("finish"))
 					break;
+				
+				// print log
+				if (!led.getPower().equals(commandArray[3]))
+					System.out.println("command : power change to " + commandArray[3]);
+				if (!led.getColor().equals(commandArray[5]))
+					System.out.println("command : color change to " + commandArray[5]);
+				if (led.getTerm() != (int)Float.parseFloat(commandArray[7]))
+					System.out.println("command : term change to " + commandArray[7]);
+				if (led.getIlluminance() != (int)Float.parseFloat(commandArray[9]))
+					System.out.println("command : illuminance change to " + commandArray[9]);
 				
 				previousTerm = led.getTerm();
 				led.setPower(commandArray[3]);
@@ -105,7 +117,8 @@ public class TasCli {
 							
 							pString = led.toString();
 							write();
-							System.out.println("in thread => " + led.toString());
+							System.out.println("color is changed!");
+							System.out.println(led.toString());
 						}
 					};
 					timer.scheduleAtFixedRate(task, led.getTerm() * 1000, led.getTerm() * 1000);
@@ -114,9 +127,6 @@ public class TasCli {
 				// write to rosemary
 				pString = led.toString();
 				write();
-				
-				// print led status
-				System.out.println(led.toString());
 			}
 			socket.close();
 		}
@@ -129,7 +139,7 @@ public class TasCli {
 	
 	public static void write() {
 		String message = "";
-		message = "{ \"ctname\": \"knu-led1\", \"con\": \"" + led.toString() +"\" }";
+		message = "{ \"ctname\": \"" + led.getName() + "\", \"con\": \"" + led.toString() +"\" }";
 		
 		try {
 			socket.getOutputStream().write(message.getBytes());
